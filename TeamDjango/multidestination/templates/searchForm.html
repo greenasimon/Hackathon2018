@@ -18,6 +18,7 @@
     padding: 24px 0;
     display: flex;
     justify-content: center;
+    flex-direction: column;
   }
   .customInput {
     border: 1px solid #febb02;
@@ -68,17 +69,79 @@
     display: flex;
     flex-direction: column;
   }
+  .searchItem {
+    display: flex;
+    justify-content: center;
+  }
 </style>
+<script>
+
+window.onload = function() {
+  var container = document.querySelector('#inputContainer');
+  var add = document.querySelector('#add');
+  var totalSearches = 1;
+  add.addEventListener('click', (event) => {
+    event.preventDefault();
+    var fragment = document.createDocumentFragment();
+    var previousSearchItem = document.querySelector('#search_' + totalSearches);
+    var prevVal = previousSearchItem.children[2].value;
+    if (!prevVal) {
+      return;
+    }
+    var previousDate = new Date(prevVal);
+    previousDate.setDate(previousDate.getDate() + 1);
+    totalSearches += 1;
+    var searchContainers = document.createElement('div');
+    searchContainers.id = 'search_' + totalSearches;
+    searchContainers.classList.add('searchItem');
+
+    var city = document.createElement('input');
+    city.type = 'text';
+    city.name = 'city';
+    city.placeholder = 'Select a location';
+    city.classList.add('customInput');
+    fragment.appendChild(city);
+
+    var checkin = document.createElement('input');
+    checkin.type = 'date';
+    checkin.name = 'checkin';
+    checkin.value = previousDate.toISOString().substring(0, 10);
+    checkin.classList.add('customInput');
+    fragment.appendChild(checkin);
+
+    var checkout = document.createElement('input');
+    checkout.type = 'date';
+    checkout.name = 'checkout';
+    checkout.classList.add('customInput');
+    previousDate.setDate(previousDate.getDate() + 1);
+    checkout.value = previousDate.toISOString().substring(0, 10);
+    fragment.appendChild(checkout);
+
+    var type = document.createElement('input');
+    type.type = 'text';
+    type.name = 'type';
+    type.classList.add('customInput');
+
+
+    fragment.appendChild(type);
+    searchContainers.appendChild(fragment);
+    container.appendChild(searchContainers);
+  }, false);
+};
+</script>
 
 <form id="searchForm" action="/multidestination/tripRoad/" method="post">
   {% csrf_token %}
    <p id="mainTitle">Find Deals for Any Season</p>
    <p id="secondaryTitle" >From cozy country homes to funky apartments</p>
    <div id="inputContainer">
-     <input type="text" class="customInput"  name="city" maxlength="100" id="id_city" placeholder="Select a location" />
-     <input type="date" class="customInput" name="checkin" value="2018-10-09" required id="id_checkin" placeholder="Select a start date" />
-     <input type="date" class="customInput"  name="checkout" value="2018-10-09" required id="id_checkout" placeholder="Select a end date" />
-     <input type="text" name="type" maxlength="140" required id="id_type" class="customInput" />
+      <div id="search_1" class="searchItem">
+        <input type="text" class="customInput"  name="city" maxlength="100"  placeholder="Select a location" />
+        <input type="date" class="customInput" name="checkin" value="2018-10-09" required  placeholder="Select a start date" />
+        <input type="date" class="customInput"  name="checkout" value="2018-10-09" required  placeholder="Select a end date" />
+        <input type="text" name="type" maxlength="140" required  class="customInput" />
+      </div>
+
    </div>
    <div id="buttonsContainer">
      <button id="add">+ Add another destination</button>
@@ -90,4 +153,3 @@
 
    </div>
 </form>
-
