@@ -32,6 +32,7 @@ def home(request):
             city1 = request.POST['city_1']
             checkin_date1 = request.POST['checkin_1']
             checout_date1 = request.POST['checkout_1']
+            print(checout_date1)
             nub_pers1 = request.POST['numberOfPersons_1']
 
             city2 = request.POST['city_2']
@@ -46,11 +47,19 @@ def home(request):
 
             #getcity details
             cityId1 = getCityID(city1)
+            hoteldetails1 = getHotelAvailability(cityId1,checkin_date1,checout_date1)
+
+            cityId2 = getCityID(city2)
+            hoteldetails2 = getHotelAvailability(cityId2, checkin_date2, checout_date2)
+
+            cityId3 = getCityID(city3)
+            print(cityId3)
+            hoteldetails3 = getHotelAvailability(cityId3, checkin_date3, checout_date3)
 
             budget = request.POST['budget']
             print(city1, city2, city3)
-            #return HttpResponse(cityId1)
-            return render(request, 'tripRoad.html')
+            return HttpResponse(hoteldetails3)
+            #return render(request, 'tripRoad.html')
     else:
         form = TripHotelSearchForm()
 
@@ -64,7 +73,25 @@ def trip(request):
 
 def getCityID(dest):
     api = findBookingAPI("searchCity")
+    res = results(api,dest)
+    for item in res:
+        if item['type'] == 'city':
+            return item[id]
+    return res[-1]['city_ufi']
+
     return results(api,dest)
+
+
+def getHotelAvailability(cityid, checkin, checkout):
+    api = findBookingAPI("HotelAvailability")
+    qryParams = {"checkin":checkin,"checkout":checkout, "city_ids":cityid, "room1":'A,A', "extras":""}
+    headers = {
+        'authorization': "Basic d29tZW5pbnRlY2gyMDE4OjJEY2RDWm5UZmo=",
+        'cache-control': "no-cache",
+        'postman-token': "25ba4d68-b138-6a20-605d-c44b22c976a5"
+    }
+    response = requests.request("GET", api, headers=headers, params=qryParams)
+    return response
 
 
 def results(api,dest):
@@ -81,11 +108,11 @@ def results(api,dest):
     response = requests.request("GET", api, headers=headers, params=qryParams)
 
     #return HttpResponse(response)
-    return response.json()["result"][0]['id']
-
+    return response.json()["result"]
 def findBookingAPI(path):
     APIDict = {
-        'searchCity':"https://distribution-xml.booking.com/2.2/json/autocomplete"
+        'searchCity':"https://distribution-xml.booking.com/2.2/json/autocomplete",
+        'HotelAvailability':"https://distribution-xml.booking.com/2.2/json/hotelAvailability"
     }
     return APIDict[path]
 
