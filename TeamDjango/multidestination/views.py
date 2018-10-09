@@ -16,10 +16,14 @@ def index(request):
     return render(request,'home.html')
 
 def home(request):
+    print ("here")
+    #print request.method
     if(request.method=='POST'):
         form = TripHotelSearchForm(request.POST)
-        response = requests.request("GET", url, headers=headers)
-        print(response.text)
+        #response = requests.request("GET", url, headers=headers)
+        city = form.cleaned_data['city']
+        print (city)
+        print ("here 2 ")
         if(form.is_valid()):
             #hotelform = form.save(commit=False)
             #hotelform.save()
