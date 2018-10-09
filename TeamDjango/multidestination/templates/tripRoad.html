@@ -1,4 +1,51 @@
 
 {% include "header.html" %}
+<style>
+  #tripPlanContainer {
+    min-height: 100px;
+    background-color: #E9F0FA;
+    padding: 20px 80px;
+  }
+  .mainTitle {
+    color: #383838;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  .secondaryTitle {
+    color: #383838;
+    font-size: 14px;
+  }
+  .destinationContainer {
+    width: 210px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    text-align: center;
+    padding-top: 2px;
+  }
+  .selected {
+    border-bottom: 5px solid #0077CC;
+  }
 
-<h1> road of the trip </h1>
+  #destinations {
+    display: flex;
+    justify-content: space-between;
+  }
+
+</style>
+<div id="tripPlanContainer">
+  <p class="mainTitle">Your Trip Planner</p>
+  <div id="destinations">
+      <div id="destination_1" class="destinationContainer selected">
+          <p class="mainTitle">Paris</p>
+          <p class="secondaryTitle">Nov 1- Nov 7</p>
+      </div> 
+      <div id="destination_2" class="destinationContainer">
+          <p class="mainTitle">Paris</p>
+          <p class="secondaryTitle">Nov 1- Nov 7</p>
+      </div> 
+      <div id="destination_3" class="destinationContainer">
+          <p class="mainTitle">Paris</p>
+          <p class="secondaryTitle">Nov 1- Nov 7</p>
+      </div> 
+  </div>
+</div>
