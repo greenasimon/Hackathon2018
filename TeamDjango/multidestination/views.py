@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 # Create your views here.
 from django.http import HttpResponse
@@ -17,17 +17,18 @@ def index(request):
 
 def home(request):
     print ("here")
-    #print request.method
+    print (request.method)
     if(request.method=='POST'):
         form = TripHotelSearchForm(request.POST)
         #response = requests.request("GET", url, headers=headers)
-        city = form.cleaned_data['city']
-        print (city)
-        print ("here 2 ")
+        print ('here 2')
+        #print (form.cleaned_data['city'])
+        print (form.errors)
         if(form.is_valid()):
-            #hotelform = form.save(commit=False)
-            #hotelform.save()
-            return redirect('tripRoad.html')
+            print ('here 3')
+            hotelform = form.save(commit=False)
+            hotelform.save()
+            return render(request,'tripRoad.html')
     else :
         form = TripHotelSearchForm()
     
