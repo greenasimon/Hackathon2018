@@ -1,5 +1,8 @@
 
 <style>
+  *:focus {
+    outline: none;
+  }
   #sitePrint {
     background-size: contain;
     max-width: 100%;
@@ -143,21 +146,21 @@ window.onload = function() {
 
     var city = document.createElement('input');
     city.type = 'text';
-    city.name = 'city';
+    city.name = 'city_' + totalSearches;
     city.placeholder = 'Select a location';
     city.classList.add('customInput');
     fragment.appendChild(city);
 
     var checkin = document.createElement('input');
     checkin.type = 'date';
-    checkin.name = 'checkin';
+    checkin.name = 'checkin_' + totalSearches;
     checkin.value = previousDate.toISOString().substring(0, 10);
     checkin.classList.add('customInput');
     fragment.appendChild(checkin);
 
     var checkout = document.createElement('input');
     checkout.type = 'date';
-    checkout.name = 'checkout';
+    checkout.name = 'checkout_' + totalSearches;
     checkout.classList.add('customInput');
     previousDate.setDate(previousDate.getDate() + 1);
     checkout.value = previousDate.toISOString().substring(0, 10);
@@ -165,7 +168,7 @@ window.onload = function() {
 
     var type = document.createElement('input');
     type.type = 'text';
-    type.name = 'type';
+    type.name = 'numberOfPersons_' + totalSearches;
     type.classList.add('customInput');
     fragment.appendChild(type);
 
@@ -183,10 +186,10 @@ window.onload = function() {
    <p id="secondaryTitle" >From cozy country homes to funky apartments</p>
    <div id="inputContainer">
       <div id="search_1" class="searchItem">
-        <input type="text" class="customInput"  name="city" maxlength="100"  placeholder="Select a location" />
-        <input type="date" class="customInput" name="checkin" value="2018-10-09" required  placeholder="Select a start date" />
-        <input type="date" class="customInput"  name="checkout" value="2018-10-09" required  placeholder="Select a end date" />
-        <input type="text" name="numberOfPersons" maxlength="140" required id="id_numberOfPersons" class="customInput" />
+        <input type="text" class="customInput"  name="city_1" maxlength="100"  placeholder="Select a location" />
+        <input type="date" class="customInput" name="checkin_1" value="2018-10-09" required  placeholder="Select a start date" />
+        <input type="date" class="customInput"  name="checkout_1" value="2018-10-09" required  placeholder="Select a end date" />
+        <input type="text" name="numberOfPersons_1" maxlength="140" required id="id_numberOfPersons" class="customInput" />
       </div>
 
    </div>
