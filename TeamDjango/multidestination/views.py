@@ -21,13 +21,18 @@ def home(request):
     if(request.method=='POST'):
         form = TripHotelSearchForm(request.POST)
         #response = requests.request("GET", url, headers=headers)
-        print ('here 2')
-        #print (form.cleaned_data['city'])
         print (form.errors)
         if(form.is_valid()):
-            print ('here 3')
             hotelform = form.save(commit=False)
             hotelform.save()
+            city = request.POST['city'] 
+            checkin_date = request.POST['checkin'] 
+            checout_date = request.POST['checkout']
+            nub_pers =  request.POST['numberOfPersons']
+            budget =  request.POST['budget']
+            #print (city)
+            #print (date1, date2, per, b)
+
             return render(request,'tripRoad.html')
     else :
         form = TripHotelSearchForm()
