@@ -70,7 +70,7 @@
   }
 </style>
 
-<form id="searchForm" action="/multidestination/home/" method="post">
+<form id="searchForm" action="/multidestination/tripRoad/" method="post">
   {% csrf_token %}
    <p id="mainTitle">Find Deals for Any Season</p>
    <p id="secondaryTitle" >From cozy country homes to funky apartments</p>
@@ -84,7 +84,7 @@
      <button id="add">+ Add another destination</button>
      <div id="budgetContainer">
        <span id="budgetHint">Budget for entire trip</span>
-       <input id="budget" type="text" />
+       <input type="number" name="budget" required id="id_budget"/>
      </div>
      <input id="searchBtn" type="submit" value="Search">
 

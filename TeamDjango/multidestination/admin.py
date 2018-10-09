@@ -1,5 +1,5 @@
 from django.contrib import admin
-from multidestination.models import HotelSearch
+from multidestination.models import TripHotelSearch
 
 # Register your models here.
-admin.site.register(HotelSearch)
+admin.site.register(TripHotelSearch)
