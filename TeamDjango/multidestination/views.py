@@ -25,14 +25,25 @@ def home(request):
         if(form.is_valid()):
             hotelform = form.save(commit=False)
             hotelform.save()
-            city = request.POST['city'] 
-            checkin_date = request.POST['checkin'] 
-            checout_date = request.POST['checkout']
-            nub_pers =  request.POST['numberOfPersons']
-            budget =  request.POST['budget']
-            #print (city)
-            #print (date1, date2, per, b)
+            #print (request.POST)
 
+            city1 = request.POST['city_1'] 
+            checkin_date1 = request.POST['checkin_1'] 
+            checout_date1 = request.POST['checkout_1']
+            nub_pers1 =  request.POST['numberOfPersons_1']
+
+            city2 = request.POST['city_2'] 
+            checkin_date2 = request.POST['checkin_2'] 
+            checout_date2 = request.POST['checkout_2']
+            nub_pers2 =  request.POST['numberOfPersons_2']
+
+            city3 = request.POST['city_3'] 
+            checkin_date3 = request.POST['checkin_3'] 
+            checout_date3 = request.POST['checkout_3']
+            nub_pers3 =  request.POST['numberOfPersons_3']
+
+            budget =  request.POST['budget']
+            print (city1,city2,city3)
             return render(request,'tripRoad.html')
     else :
         form = TripHotelSearchForm()
