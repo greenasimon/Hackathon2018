@@ -7,7 +7,7 @@
   }
   #searchForm {
     background-color: #F7F7F7;
-    padding: 1px 10px 25px 10px;
+    padding: 1px 80px 25px 80px;
     font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
   }
   #mainTitle {
@@ -26,9 +26,9 @@
     flex-direction: column;
   }
   .customInput {
-    border: 1px solid #febb02;
+    border: none;
+    outline: 3px solid #febb02;
     height: 52px;
-    border-radius: 2px;
     padding: 3px;
     flex-grow: 1;
   }
@@ -82,6 +82,16 @@
     display: flex;
     justify-content: center;
   }
+  .removeBtn {
+    font-size: 14px;
+    display: inline-block;
+    width: 52px;
+    text-align: right;
+    line-height: 52px;
+    font-weight: bold;
+    color: #0077CC;
+    cursor: pointer;
+  }
 </style>
 <script>
 
@@ -89,6 +99,28 @@ window.onload = function() {
   var container = document.querySelector('#inputContainer');
   var add = document.querySelector('#add');
   var totalSearches = 1;
+  function getRemoveBtn(id) {
+    var removeBtn = document.createElement('span');
+    removeBtn.id = id;
+    removeBtn.classList.add('removeBtn');
+    removeBtn.innerHTML = 'X';
+    removeBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (totalSearches === 1) {
+        return;
+      }
+      const searchItemIdToRemove = event.target.id.split('_remove')[0];
+      console.log('event target:', searchItemIdToRemove);
+      const el = document.querySelector('#' + searchItemIdToRemove);
+      el.parentNode.removeChild(el);
+      totalSearches -= 1;
+      if (totalSearches === 1) {
+        const remEl = document.querySelector('#' + 'search_' + totalSearches + '_remove');
+        remEl.parentNode.removeChild(remEl);
+      }
+    }, false);
+    return removeBtn;
+  }
   add.addEventListener('click', (event) => {
     event.preventDefault();
     var fragment = document.createDocumentFragment();
@@ -97,6 +129,11 @@ window.onload = function() {
     if (!prevVal) {
       return;
     }
+
+    if (totalSearches === 1) {
+      previousSearchItem.appendChild(getRemoveBtn('search_' + totalSearches + '_remove'));
+    }
+
     var previousDate = new Date(prevVal);
     previousDate.setDate(previousDate.getDate() + 1);
     totalSearches += 1;
@@ -130,9 +167,10 @@ window.onload = function() {
     type.type = 'text';
     type.name = 'type';
     type.classList.add('customInput');
-
-
     fragment.appendChild(type);
+
+    fragment.appendChild(getRemoveBtn('search_' + totalSearches + '_remove'));
+
     searchContainers.appendChild(fragment);
     container.appendChild(searchContainers);
   }, false);
@@ -159,7 +197,6 @@ window.onload = function() {
        <input type="number" name="budget" required id="id_budget"/>
      </div>
      <input id="searchBtn" type="submit" value="Search">
-
    </div>
 </form>
 
