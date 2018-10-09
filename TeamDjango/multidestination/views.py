@@ -18,7 +18,7 @@ def index(request):
 def home(request):
     if(request.method=='POST'):
         form = TripHotelSearchForm(request.POST)
-        #response = requests.request("GET", url, headers=headers)
+        response = requests.request("GET", url, headers=headers)
         print(response.text)
         if(form.is_valid()):
             #hotelform = form.save(commit=False)
