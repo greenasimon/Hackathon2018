@@ -177,7 +177,7 @@ window.onload = function() {
 };
 </script>
 
-<form id="searchForm" action="/tripRoad/" method="post">
+<form id="searchForm" method="post">
   {% csrf_token %}
    <p id="mainTitle">Find Deals for Any Season</p>
    <p id="secondaryTitle" >From cozy country homes to funky apartments</p>
@@ -186,7 +186,7 @@ window.onload = function() {
         <input type="text" class="customInput"  name="city" maxlength="100"  placeholder="Select a location" />
         <input type="date" class="customInput" name="checkin" value="2018-10-09" required  placeholder="Select a start date" />
         <input type="date" class="customInput"  name="checkout" value="2018-10-09" required  placeholder="Select a end date" />
-        <input type="text" name="type" maxlength="140" required  class="customInput" />
+        <input type="text" name="numberOfPersons" maxlength="140" required id="id_numberOfPersons" class="customInput" />
       </div>
 
    </div>
