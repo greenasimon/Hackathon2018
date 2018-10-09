@@ -70,14 +70,15 @@
   }
 </style>
 
-<form id="searchForm">
+<form id="searchForm" action="/multidestination/home/" method="post">
+  {% csrf_token %}
    <p id="mainTitle">Find Deals for Any Season</p>
    <p id="secondaryTitle" >From cozy country homes to funky apartments</p>
    <div id="inputContainer">
-     <input type="text" class="customInput" placeholder="Select a location" />
-     <input type="date" class="customInput" placeholder="Select a start date" />
-     <input type="date" class="customInput" placeholder="Select a end date" />
-     <input type="nummber" class="customInput" />
+     <input type="text" class="customInput"  name="city" maxlength="100" id="id_city" placeholder="Select a location" />
+     <input type="date" class="customInput" name="checkin" value="2018-10-09" required id="id_checkin" placeholder="Select a start date" />
+     <input type="date" class="customInput"  name="checkout" value="2018-10-09" required id="id_checkout" placeholder="Select a end date" />
+     <input type="text" name="type" maxlength="140" required id="id_type" class="customInput" />
    </div>
    <div id="buttonsContainer">
      <button id="add">+ Add another destination</button>
@@ -85,6 +86,8 @@
        <span id="budgetHint">Budget for entire trip</span>
        <input id="budget" type="text" />
      </div>
-     <button id="searchBtn">Search</button>
+     <input id="searchBtn" type="submit" value="Search">
+
    </div>
 </form>
+

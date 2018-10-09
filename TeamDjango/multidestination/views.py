@@ -15,18 +15,21 @@ headers = {
 def index(request):
     return render(request,'home.html')
 
-def home(request):    
+def home(request): 
+   # print form.text
     if(request.method=='POST'):
         # send the data 
         form = HotelSearchForm(request.POST)
+        print ("we are here")
         response = requests.request("GET", url, headers=headers)
-        print(response.text)
+    #    print(response.text)
         if(form.is_valid()):
+            print ("we are here 2")
             hotelform = form.save(commit=False)
             hotelform.save()
-            return redirect('searchHotel.html')
+            return redirect('home.html')
     else :
         form = HotelSearchForm()
     
     args = {'form' : form }
-    return render(request, 'searchHotel.html',args)
+    return render(request, 'home.html',args)
