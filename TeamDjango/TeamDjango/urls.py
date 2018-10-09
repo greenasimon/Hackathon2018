@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include,path
+from django.conf.urls import url, include
 
 urlpatterns = [
-    path('multidestination/', include('multidestination.urls')),
-    path('admin/', admin.site.urls),
+    #path('multidestination/', include('multidestination.urls')),
+    url(r'^admin/', admin.site.urls),
+    url(r'^', include('multidestination.urls')),
 ]
