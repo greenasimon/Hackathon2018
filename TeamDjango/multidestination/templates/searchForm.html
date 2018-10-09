@@ -98,11 +98,12 @@
 <script>
 
 window.onload = function() {
-  var container = document.querySelector('#inputContainer');
-  var add = document.querySelector('#add');
-  var totalSearches = 1;
+  const container = document.querySelector('#inputContainer');
+  const add = document.querySelector('#add');
+  let totalSearches = 1;
+  const maxSearches = 3;
   function getRemoveBtn(id) {
-    var removeBtn = document.createElement('span');
+    const removeBtn = document.createElement('span');
     removeBtn.id = id;
     removeBtn.classList.add('removeBtn');
     removeBtn.innerHTML = 'X';
@@ -128,6 +129,9 @@ window.onload = function() {
     var fragment = document.createDocumentFragment();
     var previousSearchItem = document.querySelector('#search_' + totalSearches);
     var prevVal = previousSearchItem.children[2].value;
+    if (totalSearches === maxSearches) {
+      return;
+    }
     if (!prevVal) {
       return;
     }
