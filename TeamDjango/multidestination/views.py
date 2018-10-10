@@ -3,7 +3,7 @@ import requests
 from django.http import HttpResponse
 from django.shortcuts import render
 from multidestination.forms import TripHotelSearchForm
-
+from django.http import JsonResponse
 url = "https://distribution-xml.booking.com/2.0/json/countries"
 
 headers = {
@@ -58,7 +58,14 @@ def home(request):
 
             budget = request.POST['budget']
             print(city1, city2, city3)
-            return HttpResponse(hoteldetails3)
+            #return JsonResponse(hoteldetails3)
+            args = {'c1':city1,'c2':city2,'c3':city3,
+                'checkin_date1': checkin_date1,'checkin_date2': checkin_date2,'checkin_date3': checkin_date3,
+                'checout_date1': checout_date1, 'checout_date2': checout_date2, 'checout_date3': checout_date3, 
+             'h1': hoteldetails1.json(),'h2': HttpResponse(hoteldetails2),'h3': HttpResponse(hoteldetails3) }
+            #{'tripId' :tripId}
+            return render(request,'tripRoad.html', args)
+            #return HttpResponse(hoteldetails3)
             #return render(request, 'tripRoad.html')
     else:
         form = TripHotelSearchForm()
